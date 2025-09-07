@@ -32,20 +32,8 @@ resource "google_compute_instance" "github_runner" {
 
         # Instalacija zavisnosti i Docker repoa
         apt-get update
-        apt-get install -y curl gnupg lsb-release git unzip
-
-            # Install Node.js LTS (18.x)
-        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-        apt-get install -y nodejs
+        apt-get install -y 
         
-        curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        echo \
-          "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-            $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-        apt-get update
-        apt-get install -y docker-ce docker-ce-cli containerd.io
-
         # Kreiranje korisnika
         useradd -m runner
         usermod -aG docker runner
